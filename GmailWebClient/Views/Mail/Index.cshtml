@@ -1,0 +1,151 @@
+﻿@using GmailWebClient.Controllers
+@using ImapX
+@{
+    ViewBag.Title = "Index";
+    var messages = ViewBag.Mails as IEnumerable<Message>;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    tbody > tr:nth-child(odd) > th {
+        background-color: #f9f9f9;
+    }
+
+    .table th {
+        font-weight: bold;
+    }
+
+    .table tr {
+        cursor: pointer;
+        background-color: #fff;
+    }
+
+    .table th, .table td {
+        padding: 8px;
+        line-height: 20px;
+        text-align: left;
+        vertical-align: top;
+        border-top: 1px solid #dddddd;
+    }
+
+
+    caption, th {
+        text-align: left;
+    }
+
+    address, caption, cite, code, dfn, em, strong, th, var {
+        font-style: normal;
+        font-weight: normal;
+    }
+
+    .table tr:first-child {
+        max-width: 200px;
+        min-width: 200px;
+    }
+
+    .from {
+        width: 200px;
+    }
+
+    .subject {
+        width: 600px;
+    }
+
+    .mail-date {
+        width: 100px;
+    }
+
+    .mail-delete {
+        background: no-repeat url(/Content/Images/icons.png) 0 -69px;
+        width: 21px;
+        height: 21px;
+        display: inline-block;
+        position: relative;
+        display: -moz-inline-box;
+        display: inline-block;
+        margin-top: -3px;
+        vertical-align: middle;
+        left: 20px;
+        cursor: pointer;
+    }
+
+    .not-display {
+        display: none;
+    }
+
+    .body-bg {
+        background-color: #fff;
+        min-height: 200px;
+        padding: 5px;
+    }
+
+    button {
+        margin-bottom: 10px;
+    }
+
+    textarea {
+        display: block;
+    }
+</style>
+
+<hgroup class="title">
+    <h1>Mails</h1>
+</hgroup>
+<div id="mailWrapper">
+    
+    <div id="compose-container">
+        <button id="compose">Compose</button>
+    </div>
+    <hr/>
+    @if (messages != null && messages.Any())
+    {
+        <table class="table table-striped">
+            <tr>
+                <th>From</th>
+                <th>Subject</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var mail in messages)
+            {
+                <tr class="success mail-container">
+                    <td class="from">@mail.From.DisplayName</td>
+                    <td class="subject">@mail.Subject</td>
+                    <td class="mail-date">@mail.Date.Value.ToString("yyyy-MM-dd")</td>
+                    <td class="mail-delete-action">
+                        <span class="mail-delete" data-id="@mail.UId" data-folder="@ViewBag.Folder"></span>
+                    </td>
+                    <td class="not-display message-body">@Html.Raw(mail.Body.Html)</td>
+                </tr>
+            }
+        </table>
+
+        <div id="mailBodyContainer">
+            <button id="goBack" class="not-display">Go Back</button>
+            <div id="mailBody" class="body-bg not-display"></div>
+        </div>
+        
+    }
+    else
+    {
+        <div id="noMails">No mails.</div>
+    }
+    
+    <div id="composeBodyWrapper" class="not-display">
+        <button id="backToMails">Back to mails</button>
+
+        @using(Html.BeginForm("Compose", "Mail", FormMethod.Post, new{ id = "sendMailForm" })){
+            <label for="to">To:</label>
+            <input name="to" id="to" type="text" />
+            <label for="subject">Subject:</label>
+            <input name="subject" id="subject" type="text" />
+            <textarea id="composeBody" name="body" rows="10"></textarea>
+            <input type="submit" value="Send" />
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/mail.js"></script>
+}
