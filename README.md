@@ -1,5 +1,5 @@
 # gmail-web-client
-.NET Gmail web client using IMAPX lib
+.NET Gmail web client using IMAPX lib, Bootstrap and SQL Server.
 
 # Initialize the databases
 
