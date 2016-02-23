@@ -2,30 +2,48 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <title>@ViewBag.Title - Web Client</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
         <link href="~/Content/Site.css" rel="stylesheet" />
+        <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />  
+        <link href="~/Content/bootstrap.css" rel="stylesheet" />
         <script src="~/Scripts/jquery-1.11.3.js"></script>
     </head>
     <body>
         <header>
-            <div class="content-wrapper">
-                <div class="float-left">
+@*            <div class="content-wrapper">*@
+@*                <div class="float-left">*@
+@*                </div>*@
+@*                <div class="float-right">*@
+@*                    <section id="login">*@
+@*                        @Html.Partial("_LoginPartial")*@
+@*                    </section>*@
+@*                    <nav>*@
+@*                        <ul id="menu">*@
+@*                            $1$                            <li>@Html.ActionLink("Home", "Index", "Home")</li>#1#*@
+@*                            $1$                            <li>@Html.ActionLink("About", "About", "Home")</li>#1#*@
+@*                            $1$                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>#1#*@
+@*                        </ul>*@
+@*                    </nav>*@
+@*                </div>*@
+            @*            </div>*@
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Gmail Web Client</a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                    <div class="float-right">
+                        <section id="login">
+                            @Html.Partial("_LoginPartial")
+                        </section>
+                    </div>
                 </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-@*                            <li>@Html.ActionLink("Home", "Index", "Home")</li>*@
-@*                            <li>@Html.ActionLink("About", "About", "Home")</li>*@
-@*                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
-                        </ul>
-                    </nav>
-                </div>
-            </div>
+            </nav>
         </header>
         <div id="body">
             @RenderSection("featured", required: false)
