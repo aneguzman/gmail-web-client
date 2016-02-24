@@ -34,5 +34,9 @@ namespace GmailWebClient.Controllers
             return RedirectToAction("Login", "Account");
         }
 
+        public ActionResult About()
+        {
+            return View();
+        }
     }
 }
